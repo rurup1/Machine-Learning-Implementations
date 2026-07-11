@@ -13,8 +13,6 @@ This repo consists of machine learning and AI projects that I have done both at 
 Delete rows for anything that isn't a real project (or that you don't want public). -->
 
 - [Nearest Neighbor](NearestNeighbor%202/) — k-NN from scratch, sklearn, FAISS, XGBoost
-- [Naive Bayes / HMM](NaiveBayesHMM%202/) — Naive Bayes Classifier, HMM
-- [Bayes](Bayes%202/) — Bayes' Rule, log-space, continuous random variables
 ---
 
 ## Overview
@@ -65,10 +63,6 @@ pip install -r requirements.txt
 ```
 Machine-Learning-Implementations/
 ├── NearestNeighbor 2/     # k-NN project (see its own README for deep dive)
-├── NaiveBayesHMM 2/       # [ ... ]
-├── Bayes 2/               # [ ... ]
-├── NeuralNet/             # [ ... ]
-└── Notes/                 # course notes
 ```
 
 ---
