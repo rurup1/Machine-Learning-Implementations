@@ -80,7 +80,5 @@ writeup lives in each project's own README (e.g. NearestNeighbor 2/README.md),
 not here. Keep these to a few sentences and link into the folder. -->
 
 ### Nearest Neighbor → [details](NearestNeighbor%202/)
-
 ---
-### [ Next project ]
 <!-- OPTIONAL closing section: what you learned, license, contact, etc. -->
