@@ -13,6 +13,7 @@ This repo consists of machine learning and AI projects that I have done both at 
 Delete rows for anything that isn't a real project (or that you don't want public). -->
 
 - [Nearest Neighbor](NearestNeighbor/) — k-NN from scratch, sklearn, FAISS, XGBoost
+- [Linear Regression](LinearRegression/) — normal equation, hand-derived gradient descent, JAX autodiff
 ---
 
 ## Overview
@@ -62,7 +63,8 @@ pip install -r requirements.txt
 
 ```
 Machine-Learning-Implementations/
-└── NearestNeighbor/       # k-NN project (see its own README for deep dive)
+├── NearestNeighbor/       # k-NN project (see its own README for deep dive)
+└── LinearRegression/      # linear regression 3 ways: matrix inversion, gradient descent, autodiff
 ```
 
 ---
@@ -74,5 +76,8 @@ writeup lives in each project's own README (e.g. NearestNeighbor/README.md),
 not here. Keep these to a few sentences and link into the folder. -->
 
 ### Nearest Neighbor → [details](NearestNeighbor/)
+
+### Linear Regression → [details](LinearRegression/)
+Predicts house sale prices from property features. Solves the same least-squares problem three ways — closed-form normal equation, gradient descent with a hand-derived gradient, and gradient descent with JAX's automatic differentiation — and verifies all three converge to the same coefficients (R² = 0.854).
 ---
 <!-- OPTIONAL closing section: what you learned, license, contact, etc. -->
