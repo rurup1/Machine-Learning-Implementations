@@ -78,6 +78,5 @@ not here. Keep these to a few sentences and link into the folder. -->
 ### Nearest Neighbor → [details](NearestNeighbor/)
 
 ### Linear Regression → [details](LinearRegression/)
-Predicts house sale prices from property features. Solves the same least-squares problem three ways — closed-form normal equation, gradient descent with a hand-derived gradient, and gradient descent with JAX's automatic differentiation — and verifies all three converge to the same coefficients (R² = 0.854).
 ---
 <!-- OPTIONAL closing section: what you learned, license, contact, etc. -->
