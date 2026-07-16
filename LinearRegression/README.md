@@ -42,7 +42,7 @@ Our data is from a spreadsheet (recent_sales.csv). This file has features and pr
 
 ---
 
-## How Linear Regression Works
+## Background: How Linear Regression Works
 
 ---
 
@@ -208,3 +208,15 @@ Then, we use grad_function = jax.grad(loss_function) to create a function that c
 ---
 
 I got that $`R^2 = 0.853819`$, identical across all three methods. This means that the five features linearly explain about 85% of the variation in house prices. The remaining 15% is noise that the model cannot capture, like condition, renovations, or other non-linear effects.
+
+---
+
+## What I Learned
+
+---
+
+The biggest takeaway is that the same optimization problem can be attacked from very different angles and still land in the same place. The normal equation, hand-derived gradient descent, and JAX autodiff all produced the same $`R^2`$, which is a strong sanity check that each implementation is correct. If one of the three had disagreed, that would have pointed directly at a bug.
+
+Linear regression is a special case: because L2 loss is quadratic in the parameters, the problem is convex and has an exact closed-form solution. Most models do not have this structure, so gradient descent is the tool that generalizes. Implementing it by hand made the failure modes concrete — before standardizing the features, the wildly different scales (square footage in the thousands vs. bathrooms in the single digits) made the loss surface so ill-conditioned that descent was impractically slow. Rescaling to zero mean and unit variance fixed it, but it also introduced bookkeeping I hadn't anticipated: leaving the bias column untouched to avoid dividing by zero, and unstandardizing the learned coefficients at the end so predictions work on raw data.
+
+Finally, JAX's autodiff drove home why nobody derives gradients by hand in modern ML. Writing the loss function and letting jax.grad produce the gradient was less code, less error-prone, and matched my hand-derived version exactly. The calculus I did for explicit gradient descent was worth doing once to understand what autodiff is automating.
