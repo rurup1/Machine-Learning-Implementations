@@ -9,15 +9,15 @@
 
 ---
 
-- Overview
-- The Dataset
-- Background: How Linear Regression Works
-- Matrix Inversion
-- Background: What is Gradient Descent?
-- Explicit Gradient Descent
-- Gradient Descent using JAX autodiff
-- Results
-- What I Learned
+- [Overview](#overview)
+- [The Dataset](#the-dataset)
+- [Background: How Linear Regression Works](#background-how-linear-regression-works)
+- [Matrix Inversion](#matrix-inversion)
+- [Background: What is Gradient Descent?](#background-what-is-gradient-descent)
+- [Explicit Gradient Descent](#explicit-gradient-descent)
+- [Gradient Descent using JAX autodiff](#gradient-descent-using-jax-autodiff)
+- [Results](#results)
+- [What I Learned](#what-i-learned)
 
 ---
 
