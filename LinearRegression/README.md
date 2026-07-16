@@ -1,3 +1,6 @@
+# Linear Regression and Gradient Descent
+
+
 # I predicted house sale prices given property features in 3 ways: closed-form normal equation, gradient descent with hand-derived gradients, and then gradient descent with JAX's automatic differentiation, and then verified that all three converged to the same $`R^2`$.
 
 ---
