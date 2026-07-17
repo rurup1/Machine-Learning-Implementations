@@ -14,6 +14,7 @@ Delete rows for anything that isn't a real project (or that you don't want publi
 
 - [Nearest Neighbor](NearestNeighbor/) — k-NN from scratch, sklearn, FAISS, XGBoost
 - [Linear Regression](LinearRegression/) — normal equation, hand-derived gradient descent, JAX autodiff
+- [Neural Network](NeuralNet/) — MLP for MNIST digits: from scratch with manual backprop, then the same net in Flax NNX
 ---
 
 ## Overview
@@ -31,7 +32,7 @@ For these projects, I like to build out the core algorithm by hand, or in scratc
 
 <!-- Bullet the main tools so a reader knows what they're looking at. -->
 - **Language:** Python 3.14
-- **Core libraries:** JAX / NumPy, scikit-learn, XGBoost, FAISS
+- **Core libraries:** JAX / NumPy, scikit-learn, XGBoost, FAISS, Flax NNX, optax
 - **GT PACE:** HPC resource @ GT
 ---
 
@@ -64,7 +65,8 @@ pip install -r requirements.txt
 ```
 Machine-Learning-Implementations/
 ├── NearestNeighbor/       # k-NN project (see its own README for deep dive)
-└── LinearRegression/      # linear regression 3 ways: matrix inversion, gradient descent, autodiff
+├── LinearRegression/      # linear regression 3 ways: matrix inversion, gradient descent, autodiff
+└── NeuralNet/             # MNIST MLP: from-scratch backprop vs. Flax NNX
 ```
 
 ---
@@ -78,5 +80,9 @@ not here. Keep these to a few sentences and link into the folder. -->
 ### Nearest Neighbor → [details](NearestNeighbor/)
 
 ### Linear Regression → [details](LinearRegression/)
+
+### Neural Network → [details](NeuralNet/)
+
+A two-layer MLP (784 → 128 → 10) that classifies MNIST handwritten digits, built two ways. First **from scratch** in pure JAX — hand-implemented forward pass, softmax/cross-entropy, and manual backpropagation through every layer (He initialization, ReLU, gradient descent). Then the **same network in Flax NNX**, leaning on the library for autodiff and an optax optimizer. Both reach ~97.5% test accuracy, illustrating how much the modern tooling collapses while producing equivalent results.
 ---
 <!-- OPTIONAL closing section: what you learned, license, contact, etc. -->
