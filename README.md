@@ -82,7 +82,5 @@ not here. Keep these to a few sentences and link into the folder. -->
 ### Linear Regression → [details](LinearRegression/)
 
 ### Neural Network → [details](NeuralNet/)
-
-A two-layer MLP (784 → 128 → 10) that classifies MNIST handwritten digits, built two ways. First **from scratch** in pure JAX — hand-implemented forward pass, softmax/cross-entropy, and manual backpropagation through every layer (He initialization, ReLU, gradient descent). Then the **same network in Flax NNX**, leaning on the library for autodiff and an optax optimizer. Both reach ~97.5% test accuracy, illustrating how much the modern tooling collapses while producing equivalent results.
 ---
 <!-- OPTIONAL closing section: what you learned, license, contact, etc. -->
