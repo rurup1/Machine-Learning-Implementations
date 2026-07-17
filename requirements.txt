@@ -17,7 +17,7 @@ xgboost==3.3.0
 faiss-cpu==1.14.3
 
 # --- Linear Regression ---
-pandas          # unpinned: not installed in the dev env at pin time
+pandas==3.0.3
 
 # --- Plotting / IO (shared) ---
 matplotlib==3.11.0
