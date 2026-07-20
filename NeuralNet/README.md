@@ -68,7 +68,7 @@ This is what we will be using in our neural net. It clips any negative value to 
 #### Leaky ReLU
 
 $$
-\operatorname{LeakyReLU}(x) = \max(\alpha x, x), \quad \text{where } \alpha > 0 \text{ is small.}
+\text{LeakyReLU}(x) = \max(\alpha x, x), \quad \text{where } \alpha > 0 \text{ is small.}
 $$
 
 Like ReLU, but allows for a negative slope for $x < 0$ to avoid dead neurons.
@@ -84,7 +84,7 @@ Similar shape to sigmoid, but outputs in $(-1, 1)$
 #### Swish
 
 $$
-\operatorname{Swish}(x) = x\sigma(x)
+\text{Swish}(x) = x\sigma(x)
 $$
 
 There are many other activation functions, but these are the main ones. There are three main properties that are needed for a good activation function:
@@ -116,7 +116,7 @@ This loss function heavily penalizes confidently wrong predictions because of th
 We often pair this with softmax. Softmax allows us to turn the outputs from the network into probabilities. Instead of hard classification like taking the max (and argmax), we can exponentiate the scores and normalize so the outputs sum to 1:
 
 $$
-\operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{k} e^{z_j}}
+\text{softmax}(z)_i = \frac{e^{z_i}}{\sum_{j=1}^{k} e^{z_j}}
 $$
 
 So, for each input, we compute a score for every class, and apply softmax to turn the scores into probabilities. We then compare with a one-hot label, and use cross-entropy as the loss.
@@ -286,7 +286,7 @@ params = {
 }
 ```
 
-I found a learning rate that gives me over $96\%$ accuracy on the testing data.
+I found a learning rate that gives me over 96% accuracy on the testing data.
 
 ---
 
@@ -315,20 +315,21 @@ Breaking this down:
 1. model $\to$ MNISTModel.py
 2. optax.adamw(LEARNING_RATE, MOMENTUM)
 
-	This creates the AdamW update rule:
+This creates the AdamW update rule:
 
 $$
 \theta_{t+1} = \theta_t - \alpha \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon} - \alpha \lambda \theta_t
 $$
 
-	where:
-	- $\theta$ = weights
-	- $\alpha$ = learning rate
-	- $m$ = first momentum estimate
-	- $v$ = second momentum estimate
-	- $\lambda$ = weight decay
+where:
 
-	(Note: the second positional argument to optax.adamw is actually Adam's $\beta_1$, the decay rate for the first moment estimate. I call it MOMENTUM since it plays the same role as classical momentum.)
+- $\theta$ = weights
+- $\alpha$ = learning rate
+- $m$ = first momentum estimate
+- $v$ = second momentum estimate
+- $\lambda$ = weight decay
+
+(Note: the second positional argument to optax.adamw is actually Adam's $\beta_1$, the decay rate for the first moment estimate. I call it MOMENTUM since it plays the same role as classical momentum.)
 
 3. wrt = nnx.Param - this just means to only optimize things that are parameters
 
@@ -342,7 +343,7 @@ That is all. This implementation is much, much shorter than the neural net from 
 
 ### train_scratch.py
 
-After 60 epochs, my loss dropped smoothly from $0.7087$ to $0.0403$. My final training accuracy was $99.1\%$ and my testing accuracy was $97.7\%$, with a learning rate of $0.3$.
+After 60 epochs, my loss dropped smoothly from $0.7087$ to $0.0403$. My final training accuracy was 99.1% and my testing accuracy was 97.7%, with a learning rate of $0.3$.
 
 This loss drops cleanly, unlike the NNX run's minor noise
 
@@ -350,9 +351,9 @@ This loss drops cleanly, unlike the NNX run's minor noise
 
 ### train_nnx.py
 
-After 20 epochs, the loss dropped steadily from $0.2587$ to $0.0268$. My final training accuracy was $99.36\%$ and testing accuracy was $97.41\%$, with a learning rate of $0.1$ and momentum of $0.9$.
+After 20 epochs, the loss dropped steadily from $0.2587$ to $0.0268$. My final training accuracy was 99.36% and testing accuracy was 97.41%, with a learning rate of $0.1$ and momentum of $0.9$.
 
-This gap in the train/test $\%$ is normal mild overfitting for an MLP. The usual levers are adding dropout/weight decay or a convolutional layer.
+This gap in the train/test % is normal mild overfitting for an MLP. The usual levers are adding dropout/weight decay or a convolutional layer.
 
 ---
 
@@ -361,6 +362,6 @@ This gap in the train/test $\%$ is normal mild overfitting for an MLP. The usual
 - **Backpropagation is just the chain rule, organized.** Writing weights_gradient, biases_gradient, and input_gradients by hand made it concrete: every layer receives an upstream gradient, updates its own parameters, and relays a modified gradient downstream. Nothing about it is magic once the matrix shapes line up.
 - **Shapes are the whole game.** Almost every bug I hit came down to array shapes: knowing that $\nabla_W L$ must match $W$ (784 x 128), that the bias gradient sums over the batch axis, and that softmax needs `axis=1, keepdims=True` to broadcast correctly. Thinking shape-first made the vectorized code almost write itself.
 - **Numerical stability matters in practice.** The max-subtraction trick in softmax is not optional. Exponentiating raw scores overflows. Theory-correct and computer-correct are different things.
-- **Initialization and learning rate are not afterthoughts.** He initialization ($\sigma = \sqrt{2/m}$) paired with ReLU kept gradients healthy, and tuning the learning rate was the difference between diverging and hitting $97.7\%$ test accuracy.
+- **Initialization and learning rate are not afterthoughts.** He initialization ($\sigma = \sqrt{2/m}$) paired with ReLU kept gradients healthy, and tuning the learning rate was the difference between diverging and hitting 97.7% test accuracy.
 - **Softmax + cross-entropy have a beautifully simple combined gradient.** Deriving $\frac{1}{n}(\hat{Y} - Y)$ by hand showed why this pairing is standard: the messy Jacobians cancel into one clean expression.
 - **Libraries like Flax NNX earn their abstraction.** After building everything manually, the NNX version was a fraction of the code: autodiff replaced my hand-derived gradients and Optax's AdamW replaced my plain gradient descent update. But I only understand what `nnx.value_and_grad` and the optimizer are doing because I built the from-scratch version first.
