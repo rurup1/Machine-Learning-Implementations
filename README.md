@@ -86,7 +86,5 @@ not here. Keep these to a few sentences and link into the folder. -->
 ### Neural Network → [details](NeuralNet/)
 
 ### Flax CNN → [details](FlaxCNN/)
-
-Transfer learning with a pretrained VGG19: swap the ImageNet classifier head for a butterfly-category head, freeze the convolutional backbone, and train only the classifier with AdamW. Reached 89.0% validation accuracy after 21 epochs on a GT PACE H100.
 ---
 <!-- OPTIONAL closing section: what you learned, license, contact, etc. -->
