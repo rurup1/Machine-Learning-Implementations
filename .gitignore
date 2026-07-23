@@ -9,7 +9,7 @@ __pycache__/
 *.ipynb_checkpoints/
 .ipynb_checkpoints/
 
-FlaxCNN 2/butterfly-data/
+FlaxCNN/butterfly-data/
 
 # Local-only course folders (kept locally, excluded from GitHub)
 Bayes 2/

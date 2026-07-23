@@ -15,6 +15,7 @@ Delete rows for anything that isn't a real project (or that you don't want publi
 - [Nearest Neighbor](NearestNeighbor/) — k-NN from scratch, sklearn, FAISS, XGBoost
 - [Linear Regression](LinearRegression/) — normal equation, hand-derived gradient descent, JAX autodiff
 - [Neural Network](NeuralNet/) — MLP for MNIST digits: from scratch with manual backprop, then the same net in Flax NNX
+- [Flax CNN](FlaxCNN/) — VGG19 transfer learning for butterfly classification, trained on GT PACE (H100)
 ---
 
 ## Overview
@@ -66,7 +67,8 @@ pip install -r requirements.txt
 Machine-Learning-Implementations/
 ├── NearestNeighbor/       # k-NN project (see its own README for deep dive)
 ├── LinearRegression/      # linear regression 3 ways: matrix inversion, gradient descent, autodiff
-└── NeuralNet/             # MNIST MLP: from-scratch backprop vs. Flax NNX
+├── NeuralNet/             # MNIST MLP: from-scratch backprop vs. Flax NNX
+└── FlaxCNN/               # VGG19 transfer learning on butterflies (JAX/Flax NNX, GT PACE)
 ```
 
 ---
@@ -82,5 +84,9 @@ not here. Keep these to a few sentences and link into the folder. -->
 ### Linear Regression → [details](LinearRegression/)
 
 ### Neural Network → [details](NeuralNet/)
+
+### Flax CNN → [details](FlaxCNN/)
+
+Transfer learning with a pretrained VGG19: swap the ImageNet classifier head for a butterfly-category head, freeze the convolutional backbone, and train only the classifier with AdamW. Reached 89.0% validation accuracy after 21 epochs on a GT PACE H100.
 ---
 <!-- OPTIONAL closing section: what you learned, license, contact, etc. -->
