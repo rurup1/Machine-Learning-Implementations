@@ -1,11 +1,15 @@
 venv/
 .venv/
+venv312/
+*.pth
 __pycache__/
 *.pyc
 *.pyo
 .DS_Store
 *.ipynb_checkpoints/
 .ipynb_checkpoints/
+
+FlaxCNN 2/butterfly-data/
 
 # Local-only course folders (kept locally, excluded from GitHub)
 Bayes 2/
