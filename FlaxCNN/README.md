@@ -13,6 +13,7 @@ I fine-tuned a pre-trained VGG-19 (Flax NNX) to classify 75 butterfly species, r
 - [train.py](#trainpy)
 - [predict.py](#predictpy)
 - [Results](#results)
+- [What I Learned](#what-i-learned)
 
 ---
 
@@ -167,3 +168,17 @@ Training for 21 epochs on an H100 reached 89.0% validation accuracy, with 96.5% 
 ![Learning curves](learning.png)
 
 The curves show the classic transfer learning pattern. The first epoch shows a dramatic improvement because the pre-trained ImageNet backbone already produces meaningful features, only the new classifier head needs to learn.
+
+---
+
+## What I Learned
+
+**A model is structure plus state, and they live in different places.** The biggest conceptual unlock in this project was understanding why nnx.split() and nnx.merge() exist. The graph structure is already written down in the source code, so the only thing worth saving to disk is the state — the arrays. Checkpointing is just persisting the expensive half of the model and rebuilding the free half from code. The same split/merge idea is also what lets JAX transforms like jit work on models at all, since they only understand pytrees of arrays.
+
+**Freezing is enforced in two places, and they must agree.** Transfer learning here is not one switch. The same filter (nnx.All(nnx.Params, nnx.PathContains('classifier'))) has to be given both to the gradient function (via DiffState, controlling which gradients get computed) and to the optimizer (via wrt, controlling which parameters get updated). A bonus insight: because the frozen layers come before the trainable ones, backpropagation stops at the classifier input and never touches the backbone, which makes training much cheaper than full fine-tuning.
+
+**Inference preprocessing must match training preprocessing exactly.** The model learned on images resized to 224 x 224 and normalized with ImageNet statistics, so predict.py imports the same transform function that training used. This includes normalizing with ImageNet's mean and std rather than the butterfly data's own, because the pre-trained weights expect inputs distributed the way they saw during their original training.
+
+**Small bugs hide in the boring parts.** The bugs in this project were not in the ML: a shadowed Python builtin (input instead of inputs), a variable that only existed on one branch of an if/else, and a pickle call missing its file argument that would have crashed after 21 epochs of training. On a cluster, that last kind of bug is expensive — anything that runs after hours of compute deserves the most scrutiny, not the least.
+
+**Cluster jobs need slack.** The Slurm walltime has to cover environment setup, downloads, and training, and since the model only saves at the very end, hitting the limit at epoch 20 loses everything. Production loops checkpoint every few epochs for exactly this reason.
